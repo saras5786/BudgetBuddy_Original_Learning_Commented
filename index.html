@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Budget Buddy · Login</title>
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+</head>
+<body data-page="Login">
+  <div class="app-shell">
+    <main class="main">
+      <div id="flashStack" class="flash-stack"></div>
+      <div class="auth-page">
+        <div class="auth-card">
+          <div class="auth-logo">₹</div>
+          <h1>Budget Buddy</h1>
+          <p>Personal Expense Tracking and Dataset Analysis</p>
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-tab="login">Sign In</button>
+            <button class="auth-tab" data-tab="signup">Sign Up</button>
+            <button class="auth-tab" data-tab="demo">Demo Access</button>
+          </div>
+          <section id="login" class="auth-panel active">
+            <h2>Account Login</h2>
+            <form id="loginForm">
+              <label>Email Address<input name="email" type="email" required placeholder="user@example.com"></label>
+              <label>Password<input name="password" type="password" required placeholder="••••••••"></label>
+              <button class="primary full" type="submit">Sign In</button>
+            </form>
+          </section>
+          <section id="signup" class="auth-panel">
+            <h2>Create Account</h2>
+            <form id="signupForm">
+              <label>Email Address<input name="email" type="email" required placeholder="user@example.com"></label>
+              <label>Password<input name="password" type="password" minlength="4" required placeholder="••••••••"></label>
+              <label>Confirm Password<input name="confirm" type="password" minlength="4" required placeholder="••••••••"></label>
+              <button class="primary full" type="submit">Create Account</button>
+            </form>
+          </section>
+          <section id="demo" class="auth-panel">
+            <h2>Instant Access</h2>
+            <p>Explore Budget Buddy with a pre-configured profile without registration.</p>
+            <form id="demoForm">
+              <button class="primary full" type="submit">Launch Demo Account</button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="static/js/app.js"></script>
+  <script>
+    // Tab switching fallback
+    document.querySelectorAll('.auth-tab').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById(btn.dataset.tab);
+        if (target) target.classList.add('active');
+      };
+    });
+
+    function showFlash(msg, type = 'success') {
+      const stack = document.getElementById('flashStack');
+      const el = document.createElement('div');
+      el.className = 'flash ' + type;
+      el.textContent = msg;
+      stack.prepend(el);
+      setTimeout(() => el.remove(), 3000);
+    }
+
+    document.querySelectorAll('form').forEach(f => {
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        showFlash('Login verified! The login page is centered properly.');
+      });
+    });
+  </script>
+</body>
+</html>
